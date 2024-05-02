@@ -1,4 +1,4 @@
-import CartIcon from '@assets/cart.svg?react';
+import CartIconWhite from '@assets/cart.svg?react';
 import logoutIcon from '@assets/Log_Out.svg';
 import logoMA from '@assets/logoMA.svg';
 import useraddIcon from '@assets/useradd.svg';
@@ -32,7 +32,7 @@ export const Header: React.FC<{ onPageChange: (page: string) => void }> = ({ onP
             </div>
             <div className={styles.headSection}>
                 <div className={styles.cart}>
-                    <CartIcon />
+                    <CartIconWhite />
                 </div>
                 <div className={styles.burgerMenu}>
                     <div className={styles.burgerLine} />

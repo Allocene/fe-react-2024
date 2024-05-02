@@ -1,7 +1,6 @@
 import React from 'react';
 
-import BlackCartIcon from '@assets/blackcart.svg?react';
-
+import { CartIcon } from '../CartIcon/CartIcon.tsx';
 import type Product from '../ProductsInterface/ProductsInterface.tsx';
 
 import styles from './productcard.module.css';
@@ -16,7 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => (
         <h3 className={styles.title}>{product.title}</h3>
         <div className={styles.priceBox}>
             <p className={styles.price}>{product.price}</p>
-            <BlackCartIcon className={styles.cart} />
+            <CartIcon />
         </div>
     </div>
 );
