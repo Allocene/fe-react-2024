@@ -8,7 +8,7 @@ import { Products } from './components/Products/Products.tsx';
 import './App.css';
 
 function App() {
-    const [currentPage, setCurrentPage] = useState('About');
+    const [currentPage, setCurrentPage] = useState('Products');
 
     const handlePageChange = (page: string) => {
         setCurrentPage(page);
