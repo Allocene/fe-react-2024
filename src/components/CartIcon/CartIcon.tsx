@@ -4,19 +4,25 @@ import Card from '@assets/cart.svg?react';
 
 import styles from './cartIcon.module.css';
 
-const CartIcon = () => {
+interface CartProps {
+    totalClicks: number;
+    onClick?: () => void;
+}
+
+const CartIcon: React.FC<CartProps> = ({ onClick, totalClicks }) => {
+    const [clicks, setClicks] = useState<number>(0);
     const [isCartActive, setIsCartActive] = useState<boolean>(false);
-    const [cartItemCount, setCartItemCount] = useState<number>(0);
 
     const handleCartIconClick = () => {
+        setClicks(clicks + 1);
         setIsCartActive(!isCartActive);
-        setCartItemCount(isCartActive ? 0 : 1);
+        onClick && onClick();
     };
 
     return (
         <div className={styles.cartIconContainer}>
             <Card onClick={handleCartIconClick} className={isCartActive ? styles.active : ''} style={{ stroke: '#111' }} />
-            {cartItemCount > 0 && <div className={styles.cartItem}>{cartItemCount}</div>}
+            {clicks > 0 && <div className={styles.cartItem}>{clicks}</div>}
         </div>
     );
 };
