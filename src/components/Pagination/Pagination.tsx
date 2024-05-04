@@ -11,34 +11,24 @@ interface PaginationProps {
 }
 
 const Pagination = ({ totalItems, itemsPerPage, onPageChange }: PaginationProps) => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
-    const pageNumbers = [];
-    for (let index = 1; index <= Math.ceil(totalItems / itemsPerPage); index++) {
-        pageNumbers.push(index);
-    }
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-    const firstPageIndex = Math.max(currentPage - 1, 1);
-    const lastPageIndex = Math.min(firstPageIndex + 2, Math.ceil(totalItems / itemsPerPage));
-
-    const paginate = (pageNumber: number) => {
-        setCurrentPage(pageNumber);
-        onPageChange(pageNumber);
-    };
-
-    const goToPreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-            onPageChange(currentPage - 1);
+    const getFirstPageIndex = (page: number) => Math.max(page - 1, 1);
+    const getLastPageIndex = (firstPageIndex: number) => Math.min(firstPageIndex + 2, totalPages);
+    const goToPage = (pageNumber: number) => {
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber);
+            onPageChange(pageNumber);
         }
     };
 
-    const goToNextPage = () => {
-        if (currentPage < Math.ceil(totalItems / itemsPerPage)) {
-            setCurrentPage(currentPage + 1);
-            onPageChange(currentPage + 1);
-        }
-    };
+    const goToPreviousPage = () => goToPage(currentPage - 1);
+    const goToNextPage = () => goToPage(currentPage + 1);
+
+    const firstPageIndex = getFirstPageIndex(currentPage);
+    const lastPageIndex = getLastPageIndex(firstPageIndex);
 
     return (
         <div className={styles.pagiBox}>
@@ -48,14 +38,16 @@ const Pagination = ({ totalItems, itemsPerPage, onPageChange }: PaginationProps)
                         &laquo;
                     </Button>
                 </li>
-                {pageNumbers.slice(firstPageIndex - 1, lastPageIndex).map((number) => (
-                    <li key={number}>
-                        <Button onClick={() => paginate(number)} className={currentPage === number ? styles.active : styles.nonactive}>
-                            {number}
-                        </Button>
-                    </li>
-                ))}
-                <li className={currentPage === Math.ceil(totalItems / itemsPerPage) ? 'disabled' : ''}>
+                {Array.from({ length: totalItems }, (_, index) => index + 1)
+                    .slice(firstPageIndex - 1, lastPageIndex)
+                    .map((number) => (
+                        <li key={number}>
+                            <Button onClick={() => goToPage(number)} className={currentPage === number ? styles.active : styles.nonactive}>
+                                {number}
+                            </Button>
+                        </li>
+                    ))}
+                <li className={currentPage === totalPages ? 'disabled' : ''}>
                     <Button onClick={goToNextPage} className={styles.nonactive}>
                         &raquo;
                     </Button>

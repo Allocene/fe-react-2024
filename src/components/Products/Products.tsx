@@ -7,8 +7,8 @@ import { mock } from './mock';
 
 import styles from './products.module.css';
 
+const itemsPerPage = 8;
 export const Products = () => {
-    const itemsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
 
     const indexOfLastItem = currentPage * itemsPerPage;
