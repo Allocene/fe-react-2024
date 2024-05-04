@@ -5,11 +5,10 @@ import Card from '@assets/cart.svg?react';
 import styles from './cartIcon.module.css';
 
 interface CartProps {
-    totalClicks: number;
     onClick?: () => void;
 }
 
-const CartIcon: React.FC<CartProps> = ({ onClick, totalClicks }) => {
+const CartIcon: React.FC<CartProps> = ({ onClick }) => {
     const [clicks, setClicks] = useState<number>(0);
     const [isCartActive, setIsCartActive] = useState<boolean>(false);
 
