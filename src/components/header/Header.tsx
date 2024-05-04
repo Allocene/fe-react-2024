@@ -3,13 +3,19 @@ import logoutIcon from '@assets/Log_Out.svg';
 import logoMA from '@assets/logoMA.svg';
 import useraddIcon from '@assets/useradd.svg';
 
+import { Page } from '../../pages.ts';
 import { Button } from '../Button/Button.tsx';
 import { ColorSwitch } from '../ColorSwitch/ColorSwitch.tsx';
 import Image from '../Image/Image.tsx';
 import Link from '../Link/Link.tsx';
 
 import styles from './header.module.css';
-export const Header: React.FC<{ onPageChange: (page: string) => void }> = ({ onPageChange }) => (
+
+interface HeaderProps {
+    onPageChange: (page: Page) => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onPageChange }) => (
     <header className={styles.header}>
         <div className={styles.headerBox}>
             <div className={styles.headSection}>
@@ -19,12 +25,12 @@ export const Header: React.FC<{ onPageChange: (page: string) => void }> = ({ onP
             <div className={styles.navSection}>
                 <ul className={styles.navList}>
                     <li>
-                        <Link onClick={() => onPageChange('About')} className={styles.li}>
+                        <Link onClick={() => onPageChange(Page.ABOUT)} className={styles.li}>
                             About
                         </Link>
                     </li>
                     <li>
-                        <Link onClick={() => onPageChange('Products')} className={styles.li}>
+                        <Link onClick={() => onPageChange(Page.PRODUCTS)} className={styles.li}>
                             Products
                         </Link>
                     </li>
