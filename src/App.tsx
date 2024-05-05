@@ -9,10 +9,10 @@ import { Page } from './pages.ts';
 
 import './App.css';
 
-const pageComponents: Record<Page, JSX.Element> = {
+const pageComponents = {
     [Page.ABOUT]: <About />,
     [Page.PRODUCTS]: <Products />,
-};
+} as const;
 
 function App() {
     const [currentPage, setCurrentPage] = useState<Page>(Page.PRODUCTS);
