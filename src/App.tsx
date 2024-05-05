@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { About } from './components/About/About.tsx';
+import { CartProvider } from './components/CartContent/CartContent.tsx';
 import { Footer } from './components/footer/Footer.tsx';
 import { Header } from './components/header/Header.tsx';
 import { Products } from './components/Products/Products.tsx';
@@ -22,9 +23,11 @@ function App() {
 
     return (
         <>
-            <Header onPageChange={handlePageChange} />
-            {pageComponents[currentPage]}
-            <Footer />
+            <CartProvider>
+                <Header onPageChange={handlePageChange} />
+                {pageComponents[currentPage]}
+                <Footer />
+            </CartProvider>
         </>
     );
 }
