@@ -11,10 +11,11 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    const { setTotalClicks } = useCart();
+    const { /* setTotalClicks, */ setCartProducts } = useCart();
 
     const handleCartIconClick = () => {
-        setTotalClicks((previousTotalClicks) => previousTotalClicks + 1);
+        // setTotalClicks((previousTotalClicks) => previousTotalClicks + 1);
+        setCartProducts((previousCartProducts) => [...previousCartProducts, product]);
     };
 
     return (
@@ -23,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <h3 className={styles.title}>{product.title}</h3>
             <div className={styles.priceBox}>
                 <p className={styles.price}>{product.price}</p>
-                <CartIcon onClick={handleCartIconClick} />
+                <CartIcon product={product} onClick={handleCartIconClick} />
             </div>
         </div>
     );

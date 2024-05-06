@@ -39,6 +39,7 @@
 .navList .li {
   color: #F2F2F2;
   transition: font-weight .3s ease;
+  cursor: pointer;
 }
 
 .navList li {
@@ -53,6 +54,7 @@
 .cart {
   position: relative;
   margin-right: 32px;
+  cursor: pointer;
 }
 
 .totalItems {

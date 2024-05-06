@@ -19,7 +19,9 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onPageChange }) => {
-    const { totalClicks } = useCart();
+    const { /* totalClicks */ cartProducts } = useCart();
+
+    const totalClicks = cartProducts.length;
 
     return (
         <header className={styles.header}>

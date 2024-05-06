@@ -1,16 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
+import type Product from '../ProductsInterface/ProductsInterface';
 
 interface CartContextType {
-    totalClicks: number;
-    setTotalClicks: React.Dispatch<React.SetStateAction<number>>;
+    cartProducts: Product[];
+    setCartProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [totalClicks, setTotalClicks] = useState<number>(0);
+    const [cartProducts, setCartProducts] = useState<Product[]>(() => {
+        const storedCartProducts = localStorage.getItem('cartProducts');
+        return storedCartProducts ? JSON.parse(storedCartProducts) : [];
+    });
 
-    return <CartContext.Provider value={{ totalClicks, setTotalClicks }}>{children}</CartContext.Provider>;
+    useEffect(() => {
+        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+    }, [cartProducts]);
+
+    return <CartContext.Provider value={{ cartProducts, setCartProducts }}>{children}</CartContext.Provider>;
 };
 
 export const useCart = (): CartContextType => {
