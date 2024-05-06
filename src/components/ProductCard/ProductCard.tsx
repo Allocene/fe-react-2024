@@ -11,10 +11,9 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    const { /* setTotalClicks, */ setCartProducts } = useCart();
+    const { setCartProducts } = useCart();
 
     const handleCartIconClick = () => {
-        // setTotalClicks((previousTotalClicks) => previousTotalClicks + 1);
         setCartProducts((previousCartProducts) => [...previousCartProducts, product]);
     };
 
