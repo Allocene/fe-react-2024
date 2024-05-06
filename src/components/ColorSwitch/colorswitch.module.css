@@ -5,6 +5,11 @@
   margin-left: 49px;
 }
 
+.headerSun,
+.headerMoon {
+  cursor: pointer;
+}
+
 @media screen and (min-width: 1px) and (max-width: 767px) {
 
   .colorSwitch {

@@ -12,9 +12,9 @@ interface ColorSwitchProps {
 
 const ColorSwitch: React.FC<ColorSwitchProps> = ({ className, ...restProps }) => (
     <div className={`${styles.colorSwitch} ${className}`} {...restProps}>
-        <SunIcon className="headerSun" />
-        <DividerIcon className="headerDivider" />
-        <MoonIcon className="headerMoon" />
+        <SunIcon className={styles.headerSun} />
+        <DividerIcon className={styles.headerDivider} />
+        <MoonIcon className={styles.headerMoon} />
     </div>
 );
 
