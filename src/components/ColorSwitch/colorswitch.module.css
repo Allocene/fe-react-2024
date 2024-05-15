@@ -10,6 +10,16 @@
   cursor: pointer;
 }
 
+.headerSun,
+.headerMoon {
+  stroke: #656565;
+}
+
+.headerSun.active,
+.headerMoon.active {
+  stroke: #FFF;
+}
+
 @media screen and (min-width: 1px) and (max-width: 767px) {
 
   .colorSwitch {

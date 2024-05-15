@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  color: #000;
-  margin-top: 100px;
+  color: var(--text-color);
+  margin-top: 80px;
 }
 
 .products {

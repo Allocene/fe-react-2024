@@ -6,7 +6,7 @@
   height: 330px;
   width: 250px;
   padding: 20px 15px;
-  border: solid 1px #CCC;
+  border: solid 1px var(--border-color);
   border-radius: 20px;
   padding: 14px;
 }
@@ -47,7 +47,7 @@
 .price::after {
   content: " ₴";
   font-size: 12px;
-  color: #000;
+  color: var(--text-color);
 }
 
 .cart {

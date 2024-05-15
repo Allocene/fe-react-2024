@@ -1,5 +1,37 @@
+:root {
+  --text-color: #333;
+  --border-color: #CCC;
+}
+
 body {
   display: flex;
   flex-direction: column;
   min-width: 390px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  transition: background-color .3s, color .3s;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+body.dark-theme {
+  --text-color: #FFF;
+  --border-color: #333;
+  --background-color: #111;
+}
+
+.light-theme {
+  --background-color: #FFF;
+  --background-color-for-search: #F1F1F1;
+  --text-color: #333;
+  --border-color: #CCC;
+  --border-color-for-button: #E1E1E1;
+}
+
+.dark-theme {
+  --background-color: #111;
+  --background-color-for-search: #333;
+  --text-color: #FFF;
+  --border-color: #333;
+  --border-color-for-button: #656565;
 }
