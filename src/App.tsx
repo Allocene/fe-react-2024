@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { About } from './components/About/About.tsx';
 import { CartProvider } from './components/CartContent/CartContent.tsx';
@@ -11,7 +11,26 @@ import './App.css';
 
 function App() {
     const [currentPage, setCurrentPage] = useState<Page>(Page.PRODUCTS);
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
+    const [isDarkTheme, setIsDarkTheme] = useState(() => {
+        const savedTheme = localStorage.getItem('theme');
+        return savedTheme ? JSON.parse(savedTheme) : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleChange = () => {
+            setIsDarkTheme(mediaQuery.matches);
+        };
+        mediaQuery.addEventListener('change', handleChange);
+        return () => {
+            mediaQuery.removeEventListener('change', handleChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        document.body.className = isDarkTheme ? 'dark-theme' : 'light-theme';
+        localStorage.setItem('theme', JSON.stringify(isDarkTheme));
+    }, [isDarkTheme]);
 
     const handlePageChange = (page: Page) => {
         setCurrentPage(page);
@@ -19,7 +38,6 @@ function App() {
 
     const handleThemeChange = (isDark: boolean) => {
         setIsDarkTheme(isDark);
-        document.body.className = isDark ? 'dark-theme' : 'light-theme';
     };
 
     const pageComponents = {

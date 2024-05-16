@@ -24,11 +24,16 @@ export const About = () => (
                     <br /> This is a social project from MOCG company where I got an opportunity to work with Frontend mentors and to create
                     my own small project for the portfolio. <br />
                     <br /> You can contact me via{' '}
-                    <Link href="https://www.linkedin.com/in/artur-kobylatsky/" target="_blank" rel="noopener noreferrer">
+                    <Link
+                        className={styles.link}
+                        href="https://www.linkedin.com/in/artur-kobylatsky/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         Linkedin
                     </Link>{' '}
                     and check out my{' '}
-                    <Link href="https://github.com/Allocene" target="_blank" rel="noopener noreferrer">
+                    <Link className={styles.link} href="https://github.com/Allocene" target="_blank" rel="noopener noreferrer">
                         GitHub
                     </Link>
                     .
