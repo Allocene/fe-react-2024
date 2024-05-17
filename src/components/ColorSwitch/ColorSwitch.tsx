@@ -7,9 +7,9 @@ import SunIcon from '@assets/sun.svg?react';
 import styles from './colorswitch.module.css';
 
 interface ColorSwitchProps {
-    className?: string;
     isDarkMode: boolean;
     onThemeChange: (isDarkMode: boolean) => void;
+    className?: string;
 }
 
 const ColorSwitch: React.FC<ColorSwitchProps> = ({ className, isDarkMode, onThemeChange, ...restProps }) => {
