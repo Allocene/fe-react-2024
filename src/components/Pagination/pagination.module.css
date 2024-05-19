@@ -8,12 +8,12 @@
 
 .active {
   background-color: #F00;
-  color: #FFF;
+  color: var(--text-color);
 }
 
 .nonactive {
-  background-color: #FFF;
-  color: #000;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 @media screen and (min-width: 1px) and (max-width: 767px) {
@@ -31,7 +31,7 @@
     height: 32px;
     width: 32px;
     background-color: #F00;
-    color: #FFF;
+    color: var(--text-color);
     text-align: center;
     padding: 0;
   }
@@ -39,8 +39,8 @@
   .nonactive {
     height: 32px;
     width: 32px;
-    background-color: #FFF;
-    color: #000;
+    background-color: var(--background-color);
+    color: var(--text-color);
     text-align: center;
     padding: 0;
   }

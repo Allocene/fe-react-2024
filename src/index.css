@@ -44,6 +44,14 @@ button {
   transition: border-color .25s;
 }
 
+input,
+select {
+
+  &:focus {
+    outline: none;
+  }
+}
+
 @media (prefers-color-scheme: light) {
 
   :root {

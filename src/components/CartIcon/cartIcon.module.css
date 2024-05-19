@@ -16,3 +16,7 @@
   line-height: 12px;
   text-align: center;
 }
+
+.cart {
+  stroke: var(--text-color);
+}

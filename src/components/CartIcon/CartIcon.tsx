@@ -22,7 +22,7 @@ const CartIcon: React.FC<Props> = ({ onClick, product }) => {
 
     return (
         <div className={styles.cartIconContainer}>
-            <Card onClick={onClick} style={{ stroke: '#111' }} />
+            <Card onClick={onClick} className={styles.cart} />
             {productsCount > 0 && <div className={styles.cartItem}>{productsCount}</div>}
         </div>
     );

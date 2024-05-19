@@ -1,3 +1,4 @@
+// Header.tsx
 import React from 'react';
 
 import CartIconWhite from '@assets/cart.svg?react';
@@ -16,19 +17,21 @@ import styles from './header.module.css';
 
 interface HeaderProps {
     onPageChange: (page: Page) => void;
+    onThemeChange: (isDarkMode: boolean) => void;
+    isDarkMode: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onPageChange }) => {
+export const Header: React.FC<HeaderProps> = ({ onPageChange, onThemeChange, isDarkMode }) => {
     const { cartProducts } = useCart();
 
     const totalClicks = cartProducts.length;
 
     return (
-        <header className={styles.header}>
+        <header className={`${styles.header} ${isDarkMode ? styles.darkMode : ''}`}>
             <div className={styles.headerBox}>
                 <div className={styles.headSection}>
                     <Image src={logoMA} alt="logo" className="headerLogo" />
-                    <ColorSwitch />
+                    <ColorSwitch className={styles.colorSwitch} onThemeChange={onThemeChange} isDarkMode={isDarkMode} />
                 </div>
                 <div className={styles.navSection}>
                     <ul className={styles.navList}>
