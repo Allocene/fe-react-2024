@@ -14,15 +14,15 @@ interface ProductsProps {
     isDarkTheme: boolean;
 }
 
-const filterProducts = (products: typeof mock, filter: string, searchQuery: string, selectedCategory: string) => {
+const filterProducts = (products: typeof mock, filter: string, searchQuery: string, selectedCategories: string[]) => {
     let filteredProducts = products;
 
     if (searchQuery) {
         filteredProducts = filteredProducts.filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase()));
     }
 
-    if (selectedCategory) {
-        filteredProducts = filteredProducts.filter((product) => product.category.name.toLowerCase() === selectedCategory.toLowerCase());
+    if (selectedCategories.length > 0) {
+        filteredProducts = filteredProducts.filter((product) => selectedCategories.includes(product.category.name));
     }
 
     switch (filter) {
@@ -45,11 +45,11 @@ export const Products: React.FC<ProductsProps> = ({ isDarkTheme }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filter, setFilter] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     const filteredItems = useMemo(
-        () => filterProducts(mock, filter, searchQuery, selectedCategory),
-        [filter, searchQuery, selectedCategory],
+        () => filterProducts(mock, filter, searchQuery, selectedCategories),
+        [filter, searchQuery, selectedCategories],
     );
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -70,8 +70,8 @@ export const Products: React.FC<ProductsProps> = ({ isDarkTheme }) => {
         setCurrentPage(1);
     };
 
-    const handleCategoryChange = (category: string) => {
-        setSelectedCategory(category);
+    const handleCategoryChange = (categories: string[]) => {
+        setSelectedCategories(categories);
         setCurrentPage(1);
     };
 

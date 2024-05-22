@@ -15,8 +15,6 @@ const Pagination = ({ totalItems, itemsPerPage, onPageChange }: PaginationProps)
 
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-    const getFirstPageIndex = (page: number) => Math.max(page - 1, 1);
-    const getLastPageIndex = (firstPageIndex: number) => Math.min(firstPageIndex + 2, totalPages);
     const goToPage = (pageNumber: number) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber);
@@ -27,28 +25,85 @@ const Pagination = ({ totalItems, itemsPerPage, onPageChange }: PaginationProps)
     const goToPreviousPage = () => goToPage(currentPage - 1);
     const goToNextPage = () => goToPage(currentPage + 1);
 
-    const firstPageIndex = getFirstPageIndex(currentPage);
-    const lastPageIndex = getLastPageIndex(firstPageIndex);
+    const renderPagination = () => {
+        const pages = [];
+
+        if (currentPage > 2) {
+            pages.push(
+                <li key={1}>
+                    <Button onClick={() => goToPage(1)} className={styles.nonactive}>
+                        1
+                    </Button>
+                </li>,
+            );
+            if (currentPage > 3) {
+                pages.push(<li key="start-ellipsis">...</li>);
+            }
+        }
+
+        if (currentPage > 1) {
+            pages.push(
+                <li key={currentPage - 1}>
+                    <Button onClick={() => goToPage(currentPage - 1)} className={styles.nonactive}>
+                        {currentPage - 1}
+                    </Button>
+                </li>,
+            );
+        }
+
+        pages.push(
+            <li key={currentPage}>
+                <Button onClick={() => goToPage(currentPage)} className={styles.active}>
+                    {currentPage}
+                </Button>
+            </li>,
+        );
+
+        if (currentPage < totalPages) {
+            pages.push(
+                <li key={currentPage + 1}>
+                    <Button onClick={() => goToPage(currentPage + 1)} className={styles.nonactive}>
+                        {currentPage + 1}
+                    </Button>
+                </li>,
+            );
+        }
+
+        if (currentPage < totalPages - 1) {
+            if (currentPage < totalPages - 2) {
+                pages.push(<li key="end-ellipsis">...</li>);
+            }
+            pages.push(
+                <li key={totalPages}>
+                    <Button onClick={() => goToPage(totalPages)} className={styles.nonactive}>
+                        {totalPages}
+                    </Button>
+                </li>,
+            );
+        }
+
+        return pages;
+    };
 
     return (
         <div className={styles.pagiBox}>
             <ul className={styles.pagination}>
-                <li className={currentPage === 1 ? 'disabled' : ''}>
-                    <Button onClick={goToPreviousPage} className={styles.nonactive}>
+                <li className={currentPage === 1 ? styles.disabled : ''}>
+                    <Button
+                        onClick={goToPreviousPage}
+                        className={currentPage === 1 ? styles.disabledButton : styles.nonactive}
+                        disabled={currentPage === 1}
+                    >
                         &laquo;
                     </Button>
                 </li>
-                {Array.from({ length: totalItems }, (_, index) => index + 1)
-                    .slice(firstPageIndex - 1, lastPageIndex)
-                    .map((number) => (
-                        <li key={number}>
-                            <Button onClick={() => goToPage(number)} className={currentPage === number ? styles.active : styles.nonactive}>
-                                {number}
-                            </Button>
-                        </li>
-                    ))}
-                <li className={currentPage === totalPages ? 'disabled' : ''}>
-                    <Button onClick={goToNextPage} className={styles.nonactive}>
+                {renderPagination()}
+                <li className={currentPage === totalPages ? styles.disabled : ''}>
+                    <Button
+                        onClick={goToNextPage}
+                        className={currentPage === totalPages ? styles.disabledButton : styles.nonactive}
+                        disabled={currentPage === totalPages}
+                    >
                         &raquo;
                     </Button>
                 </li>

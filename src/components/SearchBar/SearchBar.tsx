@@ -16,13 +16,13 @@ const options = [
 interface SearchBarProps {
     onFilterChange: (filter: string) => void;
     onSearchChange: (searchTerm: string) => void;
-    onCategoryChange: (category: string) => void;
+    onCategoryChange: (categories: string[]) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, onCategoryChange }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [localSearchTerm, setLocalSearchTerm] = useState('');
-    const [activeCategory, setActiveCategory] = useState('');
+    const [activeCategories, setActiveCategories] = useState<string[]>([]);
 
     const handleSelect = (value: string, label: string) => {
         setSelectedOption(label);
@@ -44,8 +44,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, o
     };
 
     const handleCategoryChange = (category: string) => {
-        setActiveCategory(category);
-        onCategoryChange(category);
+        const newCategories = activeCategories.includes(category)
+            ? activeCategories.filter((cat) => cat !== category)
+            : [...activeCategories, category];
+        setActiveCategories(newCategories);
+        onCategoryChange(newCategories);
     };
 
     return (
@@ -64,19 +67,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, o
             <div className={styles.boxforsort}>
                 <div className={styles.categories}>
                     <Button
-                        className={`${styles.catbutton} ${activeCategory === 'Electronics' ? styles.active : ''}`}
+                        className={`${styles.catbutton} ${activeCategories.includes('Electronics') ? styles.active : ''}`}
                         onClick={() => handleCategoryChange('Electronics')}
                     >
                         Electronics
                     </Button>
                     <Button
-                        className={`${styles.catbutton} ${activeCategory === 'Shoes' ? styles.active : ''}`}
+                        className={`${styles.catbutton} ${activeCategories.includes('Shoes') ? styles.active : ''}`}
                         onClick={() => handleCategoryChange('Shoes')}
                     >
                         Shoes
                     </Button>
                     <Button
-                        className={`${styles.catbutton} ${activeCategory === 'Clothes' ? styles.active : ''}`}
+                        className={`${styles.catbutton} ${activeCategories.includes('Clothes') ? styles.active : ''}`}
                         onClick={() => handleCategoryChange('Clothes')}
                     >
                         Clothes
