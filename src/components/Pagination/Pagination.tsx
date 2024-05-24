@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button } from '../Button/Button.tsx';
 
@@ -14,6 +14,10 @@ const Pagination = ({ totalItems, itemsPerPage, onPageChange }: PaginationProps)
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [totalItems]);
 
     const goToPage = (pageNumber: number) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
