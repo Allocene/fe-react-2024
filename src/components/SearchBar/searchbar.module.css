@@ -59,9 +59,15 @@
   font-weight: 700;
   line-height: 21px;
   text-align: center;
+  transition: background-color .3s, color .3s;
 }
 
 .catbutton:hover {
+  color: #F1F1F1;
+  background-color: #EF4934;
+}
+
+.catbutton.active {
   color: #F1F1F1;
   background-color: #EF4934;
 }
@@ -96,7 +102,7 @@
 }
 
 .selectedOption {
-  padding: 8px;
+  padding: 10px;
   cursor: pointer;
 }
 
@@ -110,7 +116,7 @@
 .options {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: -1px;
   width: 100%;
   border: 1px solid var(--border-color-for-button);
   border-top: none;

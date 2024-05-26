@@ -11,6 +11,7 @@ interface Product {
     description?: string;
     images?: string[];
     category?: Category;
+    creationAt?: string;
 }
 
 export default Product;

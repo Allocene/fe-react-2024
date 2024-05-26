@@ -1,19 +1,47 @@
+.pagiBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pagination {
   display: flex;
   flex-direction: row;
-  gap: 25px;
+  gap: 5px;
   list-style-type: none;
+  margin-top: 70px;
+  margin-bottom: 70px;
   padding: 0;
 }
 
 .active {
   background-color: #F00;
   color: var(--text-color);
+  width: 32px;
+  height: 32px;
+  text-align: center;
 }
 
 .nonactive {
   background-color: var(--background-color);
   color: var(--text-color);
+  border: 1px var(--border-color-for-button) solid;
+  width: 32px;
+  height: 32px;
+}
+
+.pagination li.disabled {
+  pointer-events: none;
+  opacity: .5;
+}
+
+.pagination li.disabled .disabledButton {
+  background-color: var(--background-color);
+  border: 1px var(--border-color-for-button) solid;
+  color: var(--text-color);
+  cursor: default;
+  width: 32px;
+  height: 32px;
 }
 
 @media screen and (min-width: 1px) and (max-width: 767px) {
@@ -37,11 +65,23 @@
   }
 
   .nonactive {
-    height: 32px;
-    width: 32px;
     background-color: var(--background-color);
     color: var(--text-color);
-    text-align: center;
-    padding: 0;
+    border: 1px var(--border-color-for-button) solid;
+    width: 32px;
+    height: 32px;
+  }
+
+  .pagination li.disabled {
+    pointer-events: none;
+    opacity: .5;
+  }
+
+  .pagination li.disabled .disabledButton {
+    background-color: var(--background-color);
+    border: 1px var(--border-color-for-button) solid;
+    cursor: default;
+    width: 32px;
+    height: 32px;
   }
 }
