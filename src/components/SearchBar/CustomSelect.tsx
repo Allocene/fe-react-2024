@@ -19,7 +19,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ options, selectedOption, on
     return (
         <div className={styles.customSelect}>
             <div className={styles.selectedOption} onClick={() => setIsOpen(!isOpen)}>
-                {selectedOption || 'Choose a sort'}
+                {selectedOption || 'Price (High - Low)'}
                 <div className={`${styles.arrow} ${isOpen ? styles.open : ''}`}></div>
             </div>
             {isOpen && (
