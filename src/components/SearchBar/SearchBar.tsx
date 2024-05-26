@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import type { FilterType } from '../../filterType.ts';
 import { Button } from '../Button/Button';
 
 import CustomSelect from './CustomSelect';
@@ -14,7 +15,7 @@ const options = [
 ];
 
 interface SearchBarProps {
-    onFilterChange: (filter: string) => void;
+    onFilterChange: (filter: FilterType) => void;
     onSearchChange: (searchTerm: string) => void;
     onCategoryChange: (categories: string[]) => void;
 }
@@ -26,7 +27,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, o
 
     const handleSelect = (value: string, label: string) => {
         setSelectedOption(label);
-        onFilterChange(value);
+        onFilterChange(value as FilterType);
     };
 
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

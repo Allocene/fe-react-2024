@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Button } from '../Button/Button.tsx';
+import usePagination from '../customHooks/usePagination.ts';
 
 import styles from './pagination.module.css';
 
@@ -11,106 +12,62 @@ interface PaginationProps {
 }
 
 const Pagination = ({ totalItems, itemsPerPage, onPageChange }: PaginationProps) => {
-    const [currentPage, setCurrentPage] = useState<number>(1);
-
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [totalItems]);
-
-    const goToPage = (pageNumber: number) => {
-        if (pageNumber >= 1 && pageNumber <= totalPages) {
-            setCurrentPage(pageNumber);
-            onPageChange(pageNumber);
-        }
-    };
-
-    const goToPreviousPage = () => goToPage(currentPage - 1);
-    const goToNextPage = () => goToPage(currentPage + 1);
+    const { currentPage, totalPages, goToPage, goToPreviousPage, goToNextPage } = usePagination({ totalItems, itemsPerPage, onPageChange });
 
     const renderPagination = () => {
         const pages = [];
 
-        if (currentPage > 2) {
+        const addPageButton = (page: number, active: boolean) => {
             pages.push(
-                <li key={1}>
-                    <Button onClick={() => goToPage(1)} className={styles.nonactive}>
-                        1
+                <li key={page}>
+                    <Button onClick={() => goToPage(page)} className={active ? styles.active : styles.nonactive}>
+                        {page}
                     </Button>
                 </li>,
             );
+        };
+
+        if (currentPage > 2) {
+            addPageButton(1, false);
             if (currentPage > 3) {
                 pages.push(<li key="start-ellipsis">...</li>);
             }
         }
 
         if (currentPage > 1) {
-            pages.push(
-                <li key={currentPage - 1}>
-                    <Button onClick={() => goToPage(currentPage - 1)} className={styles.nonactive}>
-                        {currentPage - 1}
-                    </Button>
-                </li>,
-            );
+            addPageButton(currentPage - 1, false);
         }
 
-        pages.push(
-            <li key={currentPage}>
-                <Button onClick={() => goToPage(currentPage)} className={styles.active}>
-                    {currentPage}
-                </Button>
-            </li>,
-        );
+        addPageButton(currentPage, true);
 
         if (currentPage < totalPages) {
-            pages.push(
-                <li key={currentPage + 1}>
-                    <Button onClick={() => goToPage(currentPage + 1)} className={styles.nonactive}>
-                        {currentPage + 1}
-                    </Button>
-                </li>,
-            );
+            addPageButton(currentPage + 1, false);
         }
 
         if (currentPage < totalPages - 1) {
             if (currentPage < totalPages - 2) {
                 pages.push(<li key="end-ellipsis">...</li>);
             }
-            pages.push(
-                <li key={totalPages}>
-                    <Button onClick={() => goToPage(totalPages)} className={styles.nonactive}>
-                        {totalPages}
-                    </Button>
-                </li>,
-            );
+            addPageButton(totalPages, false);
         }
 
         return pages;
     };
 
+    const renderNavButton = (isDisabled: boolean, onClick: () => void, label: string) => (
+        <li className={isDisabled ? styles.disabled : ''}>
+            <Button onClick={onClick} className={isDisabled ? styles.disabledButton : styles.nonactive} disabled={isDisabled}>
+                {label}
+            </Button>
+        </li>
+    );
+
     return (
         <div className={styles.pagiBox}>
             <ul className={styles.pagination}>
-                <li className={currentPage === 1 ? styles.disabled : ''}>
-                    <Button
-                        onClick={goToPreviousPage}
-                        className={currentPage === 1 ? styles.disabledButton : styles.nonactive}
-                        disabled={currentPage === 1}
-                    >
-                        &laquo;
-                    </Button>
-                </li>
+                {renderNavButton(currentPage === 1, goToPreviousPage, '«')}
                 {renderPagination()}
-                <li className={currentPage === totalPages ? styles.disabled : ''}>
-                    <Button
-                        onClick={goToNextPage}
-                        className={currentPage === totalPages ? styles.disabledButton : styles.nonactive}
-                        disabled={currentPage === totalPages}
-                    >
-                        &raquo;
-                    </Button>
-                </li>
+                {renderNavButton(currentPage === totalPages, goToNextPage, '»')}
             </ul>
         </div>
     );
