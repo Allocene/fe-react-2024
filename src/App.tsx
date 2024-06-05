@@ -1,4 +1,3 @@
-// App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -16,16 +15,16 @@ function App() {
     const { isDarkTheme, handleThemeChange } = useTheme();
 
     return (
-        <Router>
+        <Router basename="/fe-react-2024">
             <ThemeProvider>
                 <CartProvider>
-                    <LayoutComponent onThemeChange={handleThemeChange} isDarkMode={isDarkTheme}>
-                        <Routes>
-                            <Route path="/" element={<About />} />
-                            <Route path="/products" element={<Products isDarkTheme={isDarkTheme} />} />
+                    <Routes>
+                        <Route path="/" element={<LayoutComponent onThemeChange={handleThemeChange} isDarkMode={isDarkTheme} />}>
+                            <Route index element={<About />} />
+                            <Route path="products" element={<Products isDarkTheme={isDarkTheme} />} />
                             <Route path="*" element={<PageNotFound />} />
-                        </Routes>
-                    </LayoutComponent>
+                        </Route>
+                    </Routes>
                 </CartProvider>
             </ThemeProvider>
         </Router>
