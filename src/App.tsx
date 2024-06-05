@@ -1,36 +1,34 @@
-import React, { useState } from 'react';
+// App.tsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { About } from './components/About/About.tsx';
-import { CartProvider } from './components/CartContent/CartContent.tsx';
-import useTheme from './components/customHooks/useTheme.ts';
-import { Footer } from './components/footer/Footer.tsx';
-import { Header } from './components/header/Header.tsx';
-import { Products } from './components/Products/Products.tsx';
-import { Page } from './pages.ts';
+import { About } from './components/About/About';
+import { CartProvider } from './components/CartContent/CartContent';
+import { ThemeProvider } from './components/CartContent/ThemeContext';
+import useTheme from './components/customHooks/useTheme';
+import LayoutComponent from './components/LayoutComponent/LayoutComponent';
+import PageNotFound from './components/PageNotFound/PageNotFound';
+import { Products } from './components/Products/Products';
 
 import './App.css';
 
 function App() {
-    const [currentPage, setCurrentPage] = useState<Page>(Page.PRODUCTS);
     const { isDarkTheme, handleThemeChange } = useTheme();
 
-    const handlePageChange = (page: Page) => {
-        setCurrentPage(page);
-    };
-
-    const pageComponents = {
-        [Page.ABOUT]: <About />,
-        [Page.PRODUCTS]: <Products isDarkTheme={isDarkTheme} />,
-    } as const;
-
     return (
-        <>
-            <CartProvider>
-                <Header onPageChange={handlePageChange} onThemeChange={handleThemeChange} isDarkMode={isDarkTheme} />
-                {pageComponents[currentPage]}
-                <Footer />
-            </CartProvider>
-        </>
+        <Router>
+            <ThemeProvider>
+                <CartProvider>
+                    <LayoutComponent onThemeChange={handleThemeChange} isDarkMode={isDarkTheme}>
+                        <Routes>
+                            <Route path="/" element={<About />} />
+                            <Route path="/products" element={<Products isDarkTheme={isDarkTheme} />} />
+                            <Route path="*" element={<PageNotFound />} />
+                        </Routes>
+                    </LayoutComponent>
+                </CartProvider>
+            </ThemeProvider>
+        </Router>
     );
 }
 
