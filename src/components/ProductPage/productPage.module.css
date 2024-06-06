@@ -1,0 +1,109 @@
+.productPage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  margin-top: 133px;
+  margin-bottom: 53px;
+  height: 470px;
+  border: solid 1px var(--border-color);
+  padding: 35px;
+  border-radius: 40px;
+}
+
+.bBack {
+  position: absolute;
+  color: var(--text-color);
+  background-color: var(--bacground-color);
+  top: 25px;
+  right: 25px;
+  padding: 7px 20px;
+  border-radius: 40px;
+  border: solid 1px var(--border-color);
+}
+
+.bBack::before {
+  content: "« ";
+  align-items: center;
+}
+
+.productImgBox {
+  display: flex;
+  flex-direction: row;
+  margin-right: 75px;
+}
+
+.productImage {
+  width: 354px;
+  border-radius: 20px;
+}
+
+.additionalImages {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-right: 15px;
+}
+
+.additionalImage {
+  height: 75px;
+  width: 75px;
+  border-radius: 10px;
+}
+
+.productText {
+  width: 506px;
+}
+
+.pth1 {
+  font-size: 32px;
+}
+
+.ptCategory {
+  color: var(--text-color);
+  background-color: var(--bacground-color);
+  padding: 7px 20px;
+  border-radius: 40px;
+  border: solid 1px var(--border-color);
+}
+
+.ptp {
+  font-size: 18px;
+}
+
+.priceBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ptprice {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 39.01px;
+  text-align: left;
+}
+
+.ptprice::after {
+  content: " ₴";
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.ptbutton {
+  display: flex;
+  align-items: center;
+  color: #FFF;
+  background-color: #EF4934;
+  border-radius: 40px;
+  border: solid 1px var(--border-color);
+  padding: 7px 20px;
+}
+
+.ptbutton::before {
+  content: url("../../assets/cart_white.svg");
+  margin-right: 6px;
+  align-items: center;
+}

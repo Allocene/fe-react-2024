@@ -7,6 +7,7 @@ import { ThemeProvider } from './components/CartContent/ThemeContext';
 import useTheme from './components/customHooks/useTheme';
 import LayoutComponent from './components/LayoutComponent/LayoutComponent';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import ProductPage from './components/ProductPage/ProductPage';
 import { Products } from './components/Products/Products';
 
 import './App.css';
@@ -22,6 +23,7 @@ function App() {
                         <Route path="/" element={<LayoutComponent onThemeChange={handleThemeChange} isDarkMode={isDarkTheme} />}>
                             <Route index element={<About />} />
                             <Route path="products" element={<Products isDarkTheme={isDarkTheme} />} />
+                            <Route path="products/:id" element={<ProductPage />} />
                             <Route path="*" element={<PageNotFound />} />
                         </Route>
                     </Routes>
