@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// import CartIcon from '@/assets/cart.svg';
 import { getProduct } from '../../products.ts';
 import { Button } from '../Button/Button.tsx';
 import type Product from '../ProductsInterface/ProductsInterface.tsx';
@@ -38,35 +37,37 @@ const ProductPage: React.FC = () => {
     }
 
     return (
-        <div className={styles.productPage}>
-            <Button className={styles.bBack} onClick={handleBackClick}>
-                Back
-            </Button>
-            <div className={styles.productImgBox}>
-                <div className={styles.additionalImages}>
-                    {product?.images &&
-                        product.images.map((image, index) => (
-                            <img
-                                key={index}
-                                src={image}
-                                alt={product?.title}
-                                className={styles.additionalImage}
-                                onClick={() => handleImageClick(image)}
-                            />
-                        ))}
+        <main className={styles.main}>
+            <div className={styles.productPage}>
+                <Button className={styles.bBack} onClick={handleBackClick}>
+                    Back
+                </Button>
+                <div className={styles.productImgBox}>
+                    <div className={styles.additionalImages}>
+                        {product?.images &&
+                            product.images.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={product?.title}
+                                    className={styles.additionalImage}
+                                    onClick={() => handleImageClick(image)}
+                                />
+                            ))}
+                    </div>
+                    <img src={mainImage} alt={product?.title} className={styles.productImage} />
                 </div>
-                <img src={mainImage} alt={product?.title} className={styles.productImage} />
-            </div>
-            <div className={styles.productText}>
-                <h1 className={styles.pth1}>{product?.title}</h1>
-                <Button className={styles.ptCategory}>{product?.category?.name}</Button>
-                <p className={styles.ptp}>{product?.description}</p>
-                <div className={styles.priceBox}>
-                    <span className={styles.ptprice}>{product?.price} </span>
-                    <Button className={styles.ptbutton}>Add to cart</Button>
+                <div className={styles.productText}>
+                    <h1 className={styles.pth1}>{product?.title}</h1>
+                    <Button className={styles.ptCategory}>{product?.category?.name}</Button>
+                    <p className={styles.ptp}>{product?.description}</p>
+                    <div className={styles.priceBox}>
+                        <span className={styles.ptprice}>{product?.price} </span>
+                        <Button className={styles.ptbutton}>Add to cart</Button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 
