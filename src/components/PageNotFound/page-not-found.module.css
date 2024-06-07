@@ -16,8 +16,7 @@
   font-size: 32px;
   padding: 10px;
   border-radius: 20px;
-  border: solid 1px #EF4934;
-  background-color: #EF4934;
+  background-color: var(--background-color-button);
   color: var(--text-color);
 }
 

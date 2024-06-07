@@ -3,19 +3,24 @@ import React, { createContext, useContext, useState } from 'react';
 
 interface ThemeContextProps {
     isDarkMode: boolean;
-    onThemeChange: (isDarkMode: boolean) => void;
+    onThemeChange: () => void;
 }
 
 interface ThemeProviderProps {
     children: ReactNode;
 }
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
+const defaultThemeContext: ThemeContextProps = {
+    isDarkMode: false,
+    onThemeChange: () => {},
+};
+
+const ThemeContext = createContext<ThemeContextProps>(defaultThemeContext);
 
 export const useThemeContext = () => {
     const context = useContext(ThemeContext);
     if (!context) {
-        throw new Error('useThemeContext must be used within a ThemeProvider');
+        throw new Error('useThemeContext shoud use inside ThemeProvider');
     }
     return context;
 };
@@ -24,7 +29,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
     const handleThemeChange = () => {
-        setIsDarkMode(isDarkMode);
+        setIsDarkMode((previousMode) => !previousMode);
     };
 
     return <ThemeContext.Provider value={{ isDarkMode, onThemeChange: handleThemeChange }}>{children}</ThemeContext.Provider>;

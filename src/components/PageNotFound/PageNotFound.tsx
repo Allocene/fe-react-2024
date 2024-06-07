@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from './pagenf.module.css';
+import styles from './page-not-found.module.css';
 
 const PageNotFound: React.FC = () => (
     <div className={styles.notfoundblock}>

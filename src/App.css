@@ -14,6 +14,7 @@ body {
 body.light-theme {
   --background-color: #FFF;
   --background-color-for-search: #F1F1F1;
+  --background-color-button: #EF4934;
   --text-color: #333;
   --border-color: #CCC;
   --border-color-for-button: #E1E1E1;
@@ -22,6 +23,7 @@ body.light-theme {
 body.dark-theme {
   --background-color: #111;
   --background-color-for-search: #333;
+  --background-color-button: #EF4934;
   --text-color: #FFF;
   --border-color: #333;
   --border-color-for-button: #656565;
