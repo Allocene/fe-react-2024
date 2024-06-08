@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { About } from './components/About/About';
 import { CartProvider } from './components/CartContent/CartContent';
@@ -16,7 +16,7 @@ function App() {
     const { isDarkTheme, handleThemeChange } = useTheme();
 
     return (
-        <Router basename="/fe-react-2024">
+        <Router>
             <ThemeProvider>
                 <CartProvider>
                     <Routes>
