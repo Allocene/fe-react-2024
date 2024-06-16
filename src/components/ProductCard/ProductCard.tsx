@@ -15,7 +15,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const { setCartProducts } = useCart();
 
     const handleCartIconClick = () => {
-        setCartProducts((previousCartProducts) => [...previousCartProducts, product]);
+        if (setCartProducts) {
+            setCartProducts((previousCartProducts) => [...previousCartProducts, product]);
+        } else {
+            console.error('setCartProducts is not defined');
+        }
     };
 
     return (
