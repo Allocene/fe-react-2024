@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import type { FilterType } from '../../filterType.ts';
+import type { FilterType } from '../../filterType';
 import { Button } from '../Button/Button';
 
 import CustomSelect from './CustomSelect';
@@ -9,24 +9,39 @@ import styles from './searchbar.module.css';
 
 const options = [
     { value: '', label: ' ' },
-    { value: 'price', label: 'Price (High - Low)' },
-    { value: 'newest', label: 'Newest' },
-    { value: 'oldest', label: 'Oldest' },
+    { value: 'Price (High - Low)', label: 'Price (High - Low)' },
+    { value: 'Newest', label: 'Newest' },
+    { value: 'Oldest', label: 'Oldest' },
 ];
 
 interface SearchBarProps {
     onFilterChange: (filter: FilterType) => void;
     onSearchChange: (searchTerm: string) => void;
     onCategoryChange: (categories: string[]) => void;
+    selectedFilter: FilterType;
+    selectedCategories: string[];
+    searchQuery: string;
+    onPriceMinChange: (minPrice: number | null) => void;
+    onPriceMaxChange: (maxPrice: number | null) => void;
+    priceMin: number | null;
+    priceMax: number | null;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, onCategoryChange }) => {
-    const [selectedOption, setSelectedOption] = useState('');
-    const [localSearchTerm, setLocalSearchTerm] = useState('');
-    const [activeCategories, setActiveCategories] = useState<string[]>([]);
+const SearchBar: React.FC<SearchBarProps> = ({
+    onFilterChange,
+    onSearchChange,
+    onCategoryChange,
+    selectedFilter,
+    selectedCategories,
+    searchQuery,
+    onPriceMinChange,
+    onPriceMaxChange,
+    priceMin,
+    priceMax,
+}) => {
+    const [localSearchTerm, setLocalSearchTerm] = useState<string>(searchQuery);
 
     const handleSelect = (value: string, label: string) => {
-        setSelectedOption(label);
         onFilterChange(value as FilterType);
     };
 
@@ -45,10 +60,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, o
     };
 
     const handleCategoryChange = (category: string) => {
-        const newCategories = activeCategories.includes(category)
-            ? activeCategories.filter((cat) => cat !== category)
-            : [...activeCategories, category];
-        setActiveCategories(newCategories);
+        const newCategories = selectedCategories.includes(category)
+            ? selectedCategories.filter((cat) => cat !== category)
+            : [...selectedCategories, category];
         onCategoryChange(newCategories);
     };
 
@@ -63,24 +77,24 @@ const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, o
                     onChange={handleSearchInputChange}
                     onKeyDown={handleSearchInputKeyDown}
                 />
-                <Button className={styles.serbutton} onClick={handleSearchButtonClick} />
+                <Button className={styles.serbutton} onClick={handleSearchButtonClick}></Button>
             </div>
             <div className={styles.boxforsort}>
                 <div className={styles.categories}>
                     <Button
-                        className={`${styles.catbutton} ${activeCategories.includes('Electronics') ? styles.active : ''}`}
+                        className={`${styles.catbutton} ${selectedCategories.includes('Electronics') ? styles.active : ''}`}
                         onClick={() => handleCategoryChange('Electronics')}
                     >
                         Electronics
                     </Button>
                     <Button
-                        className={`${styles.catbutton} ${activeCategories.includes('Shoes') ? styles.active : ''}`}
+                        className={`${styles.catbutton} ${selectedCategories.includes('Shoes') ? styles.active : ''}`}
                         onClick={() => handleCategoryChange('Shoes')}
                     >
                         Shoes
                     </Button>
                     <Button
-                        className={`${styles.catbutton} ${activeCategories.includes('Clothes') ? styles.active : ''}`}
+                        className={`${styles.catbutton} ${selectedCategories.includes('Clothes') ? styles.active : ''}`}
                         onClick={() => handleCategoryChange('Clothes')}
                     >
                         Clothes
@@ -88,7 +102,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onFilterChange, onSearchChange, o
                 </div>
                 <div className={styles.sort}>
                     <p className={styles.text}>Sort by: </p>
-                    <CustomSelect options={options} selectedOption={selectedOption} onSelect={handleSelect} />
+                    <CustomSelect options={options} selectedOption={selectedFilter} onSelect={handleSelect} />
                 </div>
             </div>
         </div>
